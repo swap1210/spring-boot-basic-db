@@ -17,4 +17,8 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public Teacher(String name) {
+        this.name = name;
+    }
 }
