@@ -2,6 +2,7 @@ package dev.bedesi.sms.schoolmanagementsystem.controller;
 
 import dev.bedesi.sms.schoolmanagementsystem.entity.Teacher;
 import dev.bedesi.sms.schoolmanagementsystem.repository.TeacherRepository;
+import dev.bedesi.sms.schoolmanagementsystem.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +15,22 @@ import java.util.Optional;
 public class TeacherController {
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    private TeacherService teacherService;
 
     @GetMapping
     public List<Teacher> getAllTeachers() {
-        return teacherRepository.findAll();
+        return teacherService.getAllTeachers();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable Long id) {
-        Optional<Teacher> teacher = teacherRepository.findById(id);
-        return teacher.map(ResponseEntity::ok)
+        return teacherService.getTeacherById(id)
+                .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Teacher createTeacher(@RequestBody Teacher teacher) {
-        return teacherRepository.save(teacher);
+        return teacherService.createTeacher(teacher);
     }
 }
