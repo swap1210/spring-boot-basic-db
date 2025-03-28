@@ -39,4 +39,5 @@ public class StudentService {
             throw new EntityNotFoundException("Student with ID " + id + " not found or already inactive");
         }
     }
+
 }

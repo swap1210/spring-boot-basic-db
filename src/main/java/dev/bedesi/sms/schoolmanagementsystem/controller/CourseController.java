@@ -47,6 +47,10 @@ public class CourseController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND) // 404 status
                     .body("course or teacher does not exist"); // Custom message
+        }catch (IllegalStateException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT) // 409 Conflict status
+                    .body(e.getMessage()); // "Course with ID X already has a teacher assigned"
         }
     }
 
@@ -59,6 +63,10 @@ public class CourseController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND) // 404 status
                     .body("student or course does not exist"); // Custom message
+        }catch (IllegalStateException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT) // 409 Conflict status
+                    .body(e.getMessage()); // ""Student with ID is already actively enrolled in course with ID"
         }
     }
 }

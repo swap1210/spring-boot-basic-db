@@ -14,7 +14,7 @@ public class StudentCourseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private float marks;
-    private Boolean active=true;
+    private boolean active=true;
     @ManyToOne
     @JoinColumn(name="std_id")
     private StudentEntity student;
