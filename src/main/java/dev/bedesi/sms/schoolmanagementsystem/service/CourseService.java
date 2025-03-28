@@ -1,5 +1,6 @@
 package dev.bedesi.sms.schoolmanagementsystem.service;
 
+import dev.bedesi.sms.schoolmanagementsystem.DAO.CourseDao;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.CourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.StudentCourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.StudentEntity;
@@ -10,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,8 +31,11 @@ public class CourseService {
     @Autowired
     private StudentCourseService studentCourseService;
 
-    public List<CourseEntity> getAllCourses() {
-        return courseRepository.findAll();
+    public List<CourseDao> getAllCourses() {
+        List<CourseDao> courseDaoList = new ArrayList<>();
+        courseRepository.findAll().forEach(courseEntity ->
+                courseDaoList.add(new CourseDao(courseEntity.getId(), courseEntity.getName())));
+        return courseDaoList;
     }
 
     public Optional<CourseEntity> getCourseById(int id) {
@@ -61,14 +66,14 @@ public class CourseService {
     }
 
     public StudentCourseEntity assignStudent(StudentCourseEntity studentCourseEntity) {
-        int courseID=studentCourseEntity.getCourse().getId();
-        int stdID=studentCourseEntity.getStudent().getId();
+        int courseID = studentCourseEntity.getCourse().getId();
+        int stdID = studentCourseEntity.getStudent().getId();
         CourseEntity existingCourse = courseRepository.findById(courseID)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Course with ID " + courseID + " not found or already inactive"));
-        StudentEntity existingStudent =studentService.getStudentById(stdID)
+        StudentEntity existingStudent = studentService.getStudentById(stdID)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Teacher with ID " +stdID+ " not found or already inactive"));
+                        "Teacher with ID " + stdID + " not found or already inactive"));
 
         // Check if an active enrollment exists
         if (studentCourseService.checkEnrollmentActive(studentCourseEntity)) {
@@ -77,6 +82,6 @@ public class CourseService {
         }
         studentCourseEntity.setStudent(existingStudent);
         studentCourseEntity.setCourse(existingCourse);
-       return studentCourseService.enrollStudent(studentCourseEntity);
+        return studentCourseService.enrollStudent(studentCourseEntity);
     }
 }

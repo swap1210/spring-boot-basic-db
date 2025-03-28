@@ -1,5 +1,6 @@
 package dev.bedesi.sms.schoolmanagementsystem.controller;
 
+import dev.bedesi.sms.schoolmanagementsystem.DAO.CourseDao;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.CourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.StudentCourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.service.CourseService;
@@ -22,7 +23,7 @@ public class CourseController {
     private StudentCourseService studentCourseService;
 
     @GetMapping
-    public List<CourseEntity> getAllCourses() {
+    public List<CourseDao> getAllCourses() {
         return courseService.getAllCourses();
     }
 
