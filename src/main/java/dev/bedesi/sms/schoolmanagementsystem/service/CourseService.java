@@ -34,7 +34,7 @@ public class CourseService {
     public List<CourseDao> getAllCourses() {
         List<CourseDao> courseDaoList = new ArrayList<>();
         courseRepository.findAll().forEach(courseEntity ->
-                courseDaoList.add(new CourseDao(courseEntity.getId(), courseEntity.getName())));
+                courseDaoList.add(new CourseDao(courseEntity.getId(), courseEntity.getName(),courseEntity.getActive())));
         return courseDaoList;
     }
 
