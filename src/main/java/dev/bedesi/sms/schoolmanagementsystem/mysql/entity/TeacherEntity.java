@@ -8,17 +8,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name="Teacher")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Teacher {
+public class TeacherEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String name;
+    private Boolean active=true;
 
-    public Teacher(String name) {
+    public TeacherEntity(String name) {
         this.name = name;
     }
 }

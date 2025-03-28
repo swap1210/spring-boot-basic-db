@@ -20,5 +20,5 @@ public class Course {
     private String name;
 
     @ManyToOne
-    private Teacher teacher;
+    private TeacherEntity teacher;
 }
