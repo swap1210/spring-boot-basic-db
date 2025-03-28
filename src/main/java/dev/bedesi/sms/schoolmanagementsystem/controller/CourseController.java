@@ -2,7 +2,9 @@ package dev.bedesi.sms.schoolmanagementsystem.controller;
 
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.CourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.service.CourseService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +32,17 @@ public class CourseController {
     @PostMapping
     public CourseEntity createCourse(@RequestBody CourseEntity course) {
         return courseService.createCourse(course);
+    }
+
+    @PostMapping("/assign-teacher")
+    public ResponseEntity<?> assignTeacher(@RequestBody CourseEntity course) {
+        try {
+            CourseEntity updatedCourse = courseService.assignTeacher(course);
+            return ResponseEntity.ok(updatedCourse); // 200 OK with the updated course on success
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND) // 404 status
+                    .body("course or teacher does not exist"); // Custom message
+        }
     }
 }
