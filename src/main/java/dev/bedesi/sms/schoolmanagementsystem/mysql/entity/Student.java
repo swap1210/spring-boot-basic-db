@@ -1,4 +1,4 @@
-package dev.bedesi.sms.schoolmanagementsystem.entity;
+package dev.bedesi.sms.schoolmanagementsystem.mysql.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

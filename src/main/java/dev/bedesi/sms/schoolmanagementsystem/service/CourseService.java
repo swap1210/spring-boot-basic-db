@@ -1,9 +1,9 @@
 package dev.bedesi.sms.schoolmanagementsystem.service;
 
-import dev.bedesi.sms.schoolmanagementsystem.entity.Course;
-import dev.bedesi.sms.schoolmanagementsystem.entity.Teacher;
-import dev.bedesi.sms.schoolmanagementsystem.repository.CourseRepository;
-import dev.bedesi.sms.schoolmanagementsystem.repository.TeacherRepository;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Course;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Teacher;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.repository.CourseRepository;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +29,8 @@ public class CourseService {
 
     public Course createCourse(Course course) {
         if (course.getTeacher() != null && course.getTeacher().getId() != null) {
-            Optional<Teacher> teacher = teacherRepository.findById(course.getTeacher().getId());
-            teacher.ifPresent(course::setTeacher);
+//            Optional<Teacher> teacher = teacherRepository.findById(course.getTeacher().getId());
+//            teacher.ifPresent(course::setTeacher);
         }
         return courseRepository.save(course);
     }

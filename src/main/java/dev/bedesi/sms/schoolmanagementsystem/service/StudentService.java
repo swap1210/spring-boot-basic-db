@@ -1,6 +1,6 @@
 package dev.bedesi.sms.schoolmanagementsystem.service;
-import dev.bedesi.sms.schoolmanagementsystem.entity.Student;
-import dev.bedesi.sms.schoolmanagementsystem.repository.StudentRepository;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Student;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.repository.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,7 @@ public class StudentService {
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
+
     public void deleteStudent(int id) {
         // Check if student exists with active = true
         Optional<Student> studentOpt = studentRepository.findById(id);

@@ -1,6 +1,6 @@
 package dev.bedesi.sms.schoolmanagementsystem.controller;
 
-import dev.bedesi.sms.schoolmanagementsystem.entity.Teacher;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Teacher;
 import dev.bedesi.sms.schoolmanagementsystem.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

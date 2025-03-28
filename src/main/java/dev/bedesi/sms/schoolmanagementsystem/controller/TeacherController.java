@@ -1,14 +1,12 @@
 package dev.bedesi.sms.schoolmanagementsystem.controller;
 
-import dev.bedesi.sms.schoolmanagementsystem.entity.Teacher;
-import dev.bedesi.sms.schoolmanagementsystem.repository.TeacherRepository;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Teacher;
 import dev.bedesi.sms.schoolmanagementsystem.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/sms/teacher")

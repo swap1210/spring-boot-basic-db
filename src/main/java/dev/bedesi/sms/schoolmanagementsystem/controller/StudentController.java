@@ -1,6 +1,6 @@
 package dev.bedesi.sms.schoolmanagementsystem.controller;
 
-import dev.bedesi.sms.schoolmanagementsystem.entity.Student;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Student;
 import dev.bedesi.sms.schoolmanagementsystem.service.StudentService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package dev.bedesi.sms.schoolmanagementsystem.repository;
+package dev.bedesi.sms.schoolmanagementsystem.mysql.repository;
 
-import dev.bedesi.sms.schoolmanagementsystem.entity.Student;
+import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
