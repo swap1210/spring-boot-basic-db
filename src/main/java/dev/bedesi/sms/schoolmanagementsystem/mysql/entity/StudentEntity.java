@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity(name="Student")
 @Data
 @NoArgsConstructor
@@ -17,4 +20,7 @@ public class StudentEntity {
     private String rollNo;
     private String name;
     private Boolean active=true;
+
+    @ManyToMany(mappedBy = "studentEntitySet")
+    private Set<CourseEntity> courseEntitySet = new HashSet<>();
 }

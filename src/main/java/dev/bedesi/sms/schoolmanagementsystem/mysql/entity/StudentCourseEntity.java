@@ -15,10 +15,8 @@ public class StudentCourseEntity {
     private int id;
     private float marks;
     private boolean active=true;
-    @ManyToOne
-    @JoinColumn(name="std_id")
-    private StudentEntity student;
-    @ManyToOne
-    @JoinColumn(name="course_id")
-    private CourseEntity course;
+    @Column(name="std_id")
+    private int studentId;
+    @Column(name="course_id")
+    private int courseId;
 }
