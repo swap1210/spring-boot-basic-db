@@ -1,6 +1,8 @@
 package dev.bedesi.sms.schoolmanagementsystem.service;
 
-import dev.bedesi.sms.schoolmanagementsystem.DAO.CourseDao;
+import dev.bedesi.sms.schoolmanagementsystem.DTO.CourseDTO;
+import dev.bedesi.sms.schoolmanagementsystem.DTO.StudentDTO;
+import dev.bedesi.sms.schoolmanagementsystem.DTO.TeacherDTO;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.CourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.StudentCourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.StudentEntity;
@@ -31,10 +33,10 @@ public class CourseService {
     @Autowired
     private StudentCourseService studentCourseService;
 
-    public List<CourseDao> getAllCourses() {
-        List<CourseDao> courseDaoList = new ArrayList<>();
+    public List<CourseDTO> getAllCourses() {
+        List<CourseDTO> courseDaoList = new ArrayList<>();
         courseRepository.findAll().forEach(courseEntity ->
-                courseDaoList.add(new CourseDao(courseEntity.getId(), courseEntity.getName(),courseEntity.getActive())));
+                courseDaoList.add(new CourseDTO(courseEntity.getId(), courseEntity.getName(),courseEntity.getActive())));
         return courseDaoList;
     }
 
@@ -46,7 +48,7 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
-    public CourseEntity assignTeacher(CourseEntity courseEntity) {
+    public TeacherDTO assignTeacher(CourseEntity courseEntity) {
         Objects.requireNonNull(courseEntity, "Course cannot be null");
         CourseEntity existingCourse = courseRepository.findById(courseEntity.getId())
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -62,10 +64,11 @@ public class CourseService {
                         "Teacher with ID " + courseEntity.getTeacher().getId() + " not found or already inactive"));
 
         existingCourse.setTeacher(teacher);
-        return courseRepository.save(existingCourse);
+        CourseEntity savedCourseEntity =courseRepository.save(existingCourse);
+        return new TeacherDTO(savedCourseEntity.getTeacher().getId());
     }
 
-    public StudentCourseEntity assignStudent(StudentCourseEntity studentCourseEntity) {
+    public StudentDTO assignStudent(StudentCourseEntity studentCourseEntity) {
         int courseID = studentCourseEntity.getCourse().getId();
         int stdID = studentCourseEntity.getStudent().getId();
         CourseEntity existingCourse = courseRepository.findById(courseID)
@@ -82,6 +85,9 @@ public class CourseService {
         }
         studentCourseEntity.setStudent(existingStudent);
         studentCourseEntity.setCourse(existingCourse);
-        return studentCourseService.enrollStudent(studentCourseEntity);
+
+        StudentCourseEntity savedStudentCourseEntity=studentCourseService.enrollStudent(studentCourseEntity);
+        StudentEntity studentEntity=savedStudentCourseEntity.getStudent();
+        return new StudentDTO(studentEntity.getId(),studentEntity.getRollNo(),studentEntity.getName());
     }
 }

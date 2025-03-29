@@ -1,6 +1,8 @@
 package dev.bedesi.sms.schoolmanagementsystem.controller;
 
-import dev.bedesi.sms.schoolmanagementsystem.DAO.CourseDao;
+import dev.bedesi.sms.schoolmanagementsystem.DTO.CourseDTO;
+import dev.bedesi.sms.schoolmanagementsystem.DTO.StudentDTO;
+import dev.bedesi.sms.schoolmanagementsystem.DTO.TeacherDTO;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.CourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.mysql.entity.StudentCourseEntity;
 import dev.bedesi.sms.schoolmanagementsystem.service.CourseService;
@@ -23,7 +25,7 @@ public class CourseController {
     private StudentCourseService studentCourseService;
 
     @GetMapping
-    public List<CourseDao> getAllCourses() {
+    public List<CourseDTO> getAllCourses() {
         return courseService.getAllCourses();
     }
 
@@ -42,8 +44,8 @@ public class CourseController {
     @PostMapping("/assign-teacher")
     public ResponseEntity<?> assignTeacher(@RequestBody CourseEntity course) {
         try {
-            CourseEntity updatedCourse = courseService.assignTeacher(course);
-            return ResponseEntity.ok(updatedCourse); // 200 OK with the updated course on success
+            TeacherDTO teacherDTO = courseService.assignTeacher(course);
+            return ResponseEntity.ok(teacherDTO); // 200 OK with the updated course on success
         } catch (EntityNotFoundException e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND) // 404 status
@@ -58,8 +60,8 @@ public class CourseController {
     @PostMapping("/assign-student")
     public ResponseEntity<?> assignStudent(@RequestBody StudentCourseEntity studentCourse) {
         try {
-            StudentCourseEntity studentCourseEntity = courseService.assignStudent(studentCourse);
-            return ResponseEntity.ok(studentCourseEntity); // 200 OK with the updated course on success
+            StudentDTO studentDTO = courseService.assignStudent(studentCourse);
+            return ResponseEntity.ok(studentDTO); // 200 OK with the updated course on success
         } catch (EntityNotFoundException e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND) // 404 status
