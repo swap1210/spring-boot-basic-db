@@ -84,7 +84,7 @@ public class CourseService {
     }
 
     public StudentDTO assignStudent(StudentCourseEntity studentCourseEntity) {
-        int courseID = studentCourseEntity.getId();
+        int courseID = studentCourseEntity.getCourseId();
         int stdID = studentCourseEntity.getStudentId();
         CourseEntity existingCourse = courseRepository.findById(courseID)
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -94,13 +94,10 @@ public class CourseService {
                         "Teacher with ID " + stdID + " not found or already inactive"));
 
         // Check if an active enrollment exists
-//        if (studentCourseService.checkEnrollmentActive(studentCourseEntity)) {
-//            throw new IllegalStateException(
-//                    "Student with ID " + stdID + " is already actively enrolled in course with ID " + courseID);
-//        }
-
-        studentCourseEntity.setStudentId(existingStudent.getId());
-        studentCourseEntity.setCourseId(existingCourse.getId());
+        if (studentCourseService.checkEnrollmentActive(studentCourseEntity)) {
+            throw new IllegalStateException(
+                    "Student with ID " + stdID + " is already actively enrolled in course with ID " + courseID);
+        }
 
         StudentCourseEntity savedStudentCourseEntity=studentCourseService.enrollStudent(studentCourseEntity);
         return new StudentDTO(existingStudent.getId(),existingStudent.getRollNo(),existingStudent.getName());

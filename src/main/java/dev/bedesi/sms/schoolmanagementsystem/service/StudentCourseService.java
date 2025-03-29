@@ -5,6 +5,8 @@ import dev.bedesi.sms.schoolmanagementsystem.mysql.repository.StudentCourseRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StudentCourseService {
     @Autowired
@@ -13,8 +15,8 @@ public class StudentCourseService {
     public StudentCourseEntity enrollStudent(StudentCourseEntity studentCourseEntity) {
         return studentCourseRepository.save(studentCourseEntity);
     }
-//    public boolean checkEnrollmentActive(StudentCourseEntity studentCourseEntity) {
-//        Optional<StudentCourseEntity> stdCourseOpt= studentCourseRepository.findByStudentIdAndCourseId(studentCourseEntity.getStudentId(),studentCourseEntity.getCourseId());
-//        return stdCourseOpt.isPresent();
-//    }
+    public boolean checkEnrollmentActive(StudentCourseEntity studentCourseEntity) {
+        Optional<StudentCourseEntity> stdCourseOpt= studentCourseRepository.findByStudentIdAndCourseId(studentCourseEntity.getStudentId(),studentCourseEntity.getCourseId());
+        return stdCourseOpt.isPresent();
+    }
 }

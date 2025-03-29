@@ -1,5 +1,6 @@
 package dev.bedesi.sms.schoolmanagementsystem.mysql.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class StudentEntity {
     private Boolean active=true;
 
     @ManyToMany(mappedBy = "studentEntitySet")
+    @JsonIgnore
     private Set<CourseEntity> courseEntitySet = new HashSet<>();
 }
